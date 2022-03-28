@@ -1,0 +1,90 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="/html/css/bulma.min.css" >
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+    <style type="text/css">
+      body{
+        font-family: sans-serif;
+        background-image: url(/html/img/selavy_logo.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        
+        padding: 0;
+        margin: 0;
+        padding-top: 45%;
+      }
+
+      h1{
+        color: tomato;
+        margin-left: 0.5em;
+        font-size: 3.5em;
+      }
+
+     
+
+
+    </style>
+</head>
+
+<body>
+
+
+
+
+    <% if (wbVerified || wbDontUse) { %>
+
+    <div style="width: 33%; padding:2em;">
+
+
+ 
+
+
+    </div>
+
+    <% }else{ %>
+
+    <div style="width: 33%; padding:2em;">
+
+      <div style=" display: flex;   height: 300px;">
+
+        <div style=""> 
+          <div style="margin-bottom: 1em;">
+            <span style="background-color: white; padding:2px; box-shadow: 2px 3px 0px 0px #000000;">To get started log in using your <a href="http://base.semlab.io">Semlab Wikibase</a> credentials</span>
+          </div>
+          <% if(error){%>
+            <div style="color:red"><%=error%></div>
+          <%}%>
+          <form action="/" method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Log in">
+          </form> 
+
+        </div>
+
+
+      </div>
+
+
+
+    </div>
+
+
+    <% } %>    
+
+  
+
+
+</body>
+
+</html>
