@@ -216,7 +216,7 @@
 
                         <div class="list-holder-image-holder">
                             <template v-if="imageLookup[item.qid]">
-                                <img :src="item.image">
+                                <img :src="item.image" :key="'item_image_'+idx+'_'+keyCounter">
                             </template> 
                             <template v-else>
                                 <span class="initals">{{returnInitals(item.label)}}</span>
@@ -597,6 +597,8 @@
                             this.filteredItems[i].image = `https://semlab.s3.amazonaws.com/images/${this.activeQid.qid}.jpg`
                             this.keyCounter++
                             this.activeQid.image = this.filteredItems[i].image
+
+                            this.imageLookup[this.activeQid.qid] = this.filteredItems[i].image
                         }                 
                     }
 
