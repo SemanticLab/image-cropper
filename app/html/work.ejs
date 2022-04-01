@@ -689,23 +689,31 @@
                     xhr.setRequestHeader('Content-Type', 'application/json');
                     xhr.onload = () => {
                         
-                        window.cropper.destroy()    
-                        document.getElementById('cropper-container').innerHTML = ''
-                                            
-                        console.log("did it")
-                        that.cropMade = true
+                        window.cropper.destroy()  
 
-                        fetch(`https://base.semlab.io/api.php?action=wbgetclaims&entity=${that.activeQid.qid}&property=P3&format=json&origin=*`)
-                          .then(response => response.json())
-                          .then((data) => {
-                            
+                        window.setTimeout(()=>{
+
+                            document.getElementById('cropper-container').innerHTML = ''
+                                            
+                            console.log("did it")
+                            that.cropMade = true
+
+                            fetch(`https://base.semlab.io/api.php?action=wbgetclaims&entity=${that.activeQid.qid}&property=P3&format=json&origin=*`)
+                            .then(response => response.json())
+                            .then((data) => {
+
                             if (data && data.claims && data.claims.P3){
                                 that.alreadyHasImageWarning=true
                             }
 
 
 
-                          });
+                            });
+
+
+
+                        }, 500);
+                       
 
 
                         // that.$nextTick(()=>{
