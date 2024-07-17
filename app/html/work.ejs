@@ -233,7 +233,7 @@
                         
 
                     </div>
-                    <div style="font-style:oblique;">Only showing the first 100 results</div>
+                    <div style="font-style:oblique;">Only showing the first 300 results</div>
 
                 </template>
 
@@ -290,7 +290,7 @@
                     <div v-if="activeQid != null">
 
                         <div style="display:flex">
-                            <div style="flex:1"><input class="input" v-model="urlToUse" placeholder="enter url to image here" type="text"></div>
+                            <div style="flex:1"><input class="input" ref="cropfrom" v-model="urlToUse" placeholder="enter url to image here" type="text"></div>
                             <div style="flex:0"><button @click="startCrop" class="button">Load</button></div>
                             
                         </div>
@@ -371,14 +371,16 @@
 
                         <form ref='uploadForm' 
                                     id='uploadForm' 
-                                    action='/upload' 
+                                    :action='"/upload?qid="+activeQid.qid' 
                                     method='post' 
                                     encType="multipart/form-data">
 
 
                             <div class="file has-name is-boxed" id="file-js">
+                                
                               <label class="file-label">
                                 <input class="file-input" ref="fileupload" type="file" name="resume">
+
                                 <span class="file-cta">
                                   <span class="file-icon">
                                     <i class="fas fa-upload"></i>
@@ -476,15 +478,18 @@
 
             this.refreshHostedList();
 
+
+
             this.$nextTick(()=>{
-                  const fileInput = document.querySelector('#file-js input[type=file]');
-                  console.log(fileInput)
-                  fileInput.onchange = () => {
-                    if (fileInput.files.length > 0) {
-                      const fileName = document.querySelector('#file-js .file-name');
-                      fileName.textContent = fileInput.files[0].name;
-                    }
-                  }
+
+                  // const fileInput = document.querySelector('#file-js input[type=file]');
+                  // console.log(fileInput)
+                  // fileInput.onchange = () => {
+                  //   if (fileInput.files.length > 0) {
+                  //     const fileName = document.querySelector('#file-js .file-name');
+                  //     fileName.textContent = fileInput.files[0].name;
+                  //   }
+                  // }
             })
           }
 
@@ -553,8 +558,37 @@
 
 
 
-              if (window.location.href.includes('?hosted')){
-                this.mainDisplay = 'host'
+              if (window.location.href.includes('?uploaded')){
+
+                    this.refreshHostedList()
+                    let waitForListLoad = window.setInterval(()=>{
+
+                        if (this.filteredItems.length>0 && this.hostedList.length>0){
+                        window.clearInterval(waitForListLoad)  
+                          console.log(window.location.hash)
+                          this.loadItem(window.location.hash.replace('#',''))        
+                             
+                          this.mainDisplay = 'crop'       
+
+                            this.$nextTick(()=>{
+                                console.log(this.hostedList[0])
+                                this.urlToUse = 'https://semlab.s3.amazonaws.com/' + this.hostedList[0].Key
+                                // this.$refs.cropfrom.value= this.urlToUse
+                                
+                                this.startCrop() 
+                            });
+
+                          
+
+                        }
+
+
+                    },500)
+
+                
+
+
+
               }
 
 
@@ -971,7 +1005,7 @@
                     }
                 }
                 
-                if (results.length>100){
+                if (results.length>300){
                     break
                 }
 

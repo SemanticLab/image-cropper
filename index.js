@@ -82,12 +82,13 @@ app.post('/', function(req, res) {
 
 	// try loging into wb
 	let generalConfig = {
-	  instance: 'http://base.semlab.io/',
+	  instance: 'https://base.semlab.io/',
 	  credentials: {
 	    username: req.body.username,
 	    password: req.body.password
 	  }
 	}
+
 
 	let wbEdit = require('wikibase-edit')(generalConfig)
 
@@ -106,6 +107,8 @@ app.post('/', function(req, res) {
 
 
 		}).catch((error)=>{
+
+			console.log(error.message)
 
 			res.render('index',{error:error.message, wbVerified:req.session.wbVerified, wbDontUse:req.session.wbDontUse})
 
@@ -190,7 +193,7 @@ app.post('/savecrop', async function (req, res) {
 	console.log(req.body.P114)
 
 	let generalConfig = {
-	  instance: 'http://base.semlab.io/',
+	  instance: 'https://base.semlab.io/',
 	  credentials: {
 	    username: req.session.wbus,
 	    password: req.session.wbpw
@@ -428,6 +431,8 @@ app.post('/upload', async function(req, res) {
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.resume;
   console.log(req.files.resume.name)
+  console.log("qid=",req.query.qid)
+
   let id = uuidv4()
   let filename = '/tmp_data/'+req.session.wbus
 
@@ -459,7 +464,7 @@ app.post('/upload', async function(req, res) {
 
 		// });
 
-		res.redirect(`/work?hosted`);
+		res.redirect(`/work?uploaded#${req.query.qid}`);
 
 
 

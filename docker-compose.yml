@@ -17,5 +17,5 @@ services:
     environment:
       NODE_ENV: development
     ports:
-      - 7000:7000
+      - 7100:7000
     command: npm run dev
