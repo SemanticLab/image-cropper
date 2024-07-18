@@ -845,31 +845,37 @@
 
 
                     this.$refs.saveCropButton.style.display='block'
-
+                    window.setTimeout(()=>{
                     document.getElementById('cropper-container').innerHTML = ""
 
 
-                    let img = document.createElement('img')
-                    img.setAttribute('src','/getcrop')
-                    img.setAttribute('id','image-crop')
-                    document.getElementById('cropper-container').appendChild(img)
+                        let img = document.createElement('img')
+                        img.setAttribute('src','/getcrop?'+Date.now())
+                        img.setAttribute('id','image-crop')
+                        document.getElementById('cropper-container').appendChild(img)
 
-                    const image = document.getElementById('image-crop');
-                    const cropper = new Cropper(image, {
-                      aspectRatio: 1 / 1,
-                      crop(event) {
-                        console.log(event.detail.x);
-                        console.log(event.detail.y);
-                        console.log(event.detail.width);
-                        console.log(event.detail.height);
-                        console.log(event.detail.rotate);
-                        console.log(event.detail.scaleX);
-                        console.log(event.detail.scaleY);
-                      },
-                    });
+                        const image = document.getElementById('image-crop');
+                        const cropper = new Cropper(image, {
+                          aspectRatio: 1 / 1,
+                          crop(event) {
+                            console.log(event.detail.x);
+                            console.log(event.detail.y);
+                            console.log(event.detail.width);
+                            console.log(event.detail.height);
+                            console.log(event.detail.rotate);
+                            console.log(event.detail.scaleX);
+                            console.log(event.detail.scaleY);
+                          },
+                        });
 
 
-                    window.cropper = cropper
+                        window.cropper = cropper
+
+
+
+                    },500)
+
+
 
 
                 }
