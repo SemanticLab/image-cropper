@@ -330,7 +330,7 @@
                             <div style="display: flex;margin-top: 2em;">
                                 <div style="flex:1">Image (P3):</div>
                                 <div style="flex:10">
-                                    <img src="/getcrop">      
+                                    <img id="crop-preview" src="">      
                                 </div>
                             </div>
 
@@ -728,9 +728,20 @@
                         window.setTimeout(()=>{
 
                             document.getElementById('cropper-container').innerHTML = ''
+
+
                                             
                             console.log("did it")
                             that.cropMade = true
+
+                            that.$nextTick(()=>{
+                                console.log(document.getElementById('crop-preview'))
+                                document.getElementById('crop-preview').setAttribute('src','/getcrop?'+Date.now())
+
+                            });
+                            
+
+                            
 
                             fetch(`https://base.semlab.io/api.php?action=wbgetclaims&entity=${that.activeQid.qid}&property=P3&format=json&origin=*`)
                             .then(response => response.json())
@@ -846,7 +857,7 @@
 
                     this.$refs.saveCropButton.style.display='block'
                     window.setTimeout(()=>{
-                    document.getElementById('cropper-container').innerHTML = ""
+                        document.getElementById('cropper-container').innerHTML = ""
 
 
                         let img = document.createElement('img')
