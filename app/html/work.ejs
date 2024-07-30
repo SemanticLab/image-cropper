@@ -1010,17 +1010,21 @@
 
                 this.imageLookup[i.qid] = i.image
 
-                // if we only care about ones with no image yet then dont do anything with the ones with image
-                if (this.filterDoesNotHaveImage == true && i.image){
-                    continue
-
-                }
-
                 if (this.filterText){
-                    if (!i.label.toLocaleLowerCase().includes(this.filterText)){
+                    
+                    if (!i.label.toLocaleLowerCase().includes(this.filterText.toLocaleLowerCase())){
                         continue
                     }
+                }else{
+
+                    // if we only care about ones with no image yet then dont do anything with the ones with image
+                    if (this.filterDoesNotHaveImage == true && i.image){
+                        continue
+
+                    }
                 }
+
+
                 
                 if (results.length>300){
                     break
