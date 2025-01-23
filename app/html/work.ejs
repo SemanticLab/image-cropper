@@ -337,13 +337,13 @@
 
 
                             <div style="display: flex;">
-                                <div style="flex:1">Title (P82):</div>
+                                <div style="flex:1">Title (<a target="_blank" href="https://base.semlab.io/wiki/Property:P82">P82</a>):</div>
                                 <div style="flex:10">
                                     <textarea class="textarea" v-model="P82" placeholder="Enter the title of this image, source, citations, info, etc." rows="10"></textarea>    
                                 </div>
                             </div>
                             <div style="display: flex;">
-                                <div style="flex:1">Ref URL (P114):</div>
+                                <div style="flex:1">Ref URL (<a target="_blank" href="https://base.semlab.io/wiki/Property:P114">P114</a>):</div>
                                 <div style="flex:10">
                                     <input class="input" v-model="urlToUse" type="text">
                                     <div v-if="urlToUse.includes('semlab.s3.amazonaws.com/images/hosted/')" style="font-style:bold; color:red">
@@ -351,6 +351,19 @@
                                     </div>
                                 </div>
                             </div>
+                            <div style="display: flex;">
+                                <div style="flex:1">Copyright Statement (<a target="_blank" href="https://base.semlab.io/wiki/Property:P142">P142</a>):</div>
+                                <div style="flex:10">
+                                    <input class="input" v-model="P142" type="text">
+                                </div>
+                            </div>
+                            <div style="display: flex;">
+                                <div style="flex:1">Credit Line (<a target="_blank" href="https://base.semlab.io/wiki/Property:P136">P136</a>):</div>
+                                <div style="flex:10">
+                                    <input class="input" v-model="P136" type="text">
+                                </div>
+                            </div>
+
 
                             <button @click="sendIt" class="button">Upload and Create Claims</button>
 
@@ -464,6 +477,10 @@
            keyCounter: 0,
 
            P82: null,
+           P136:null,
+           P142:null,
+
+
            cropResults: false,
            alreadyHasImageWarning: false,
 
@@ -654,6 +671,8 @@
             xhr.send(JSON.stringify({
                 item: this.activeQid,
                 P82: this.P82,
+                P136:this.P136,
+                P142:this.P142,
                 P114: this.urlToUse
             }));  
 

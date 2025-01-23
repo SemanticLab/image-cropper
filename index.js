@@ -205,6 +205,8 @@ app.post('/savecrop', async function (req, res) {
 	let wbEdit = require('wikibase-edit')(generalConfig);
 
 	let ref = {}
+	let qualifiers = {}
+
 
 	if (req.body.P82 && req.body.P82.trim != ''){
 		ref.P82 = { text: req.body.P82, language: 'en' } 
@@ -213,6 +215,13 @@ app.post('/savecrop', async function (req, res) {
 	if (req.body.P114 && req.body.P114.trim != ''){
 		ref.P114 = req.body.P114
 	}
+	if (req.body.P136 && req.body.P136.trim != ''){
+		qualifiers.P136 = req.body.P136
+	}
+	if (req.body.P142 && req.body.P142.trim != ''){
+		qualifiers.P142 = req.body.P142
+	}
+
 
 	let log = ""
 
@@ -244,9 +253,6 @@ app.post('/savecrop', async function (req, res) {
 	}
 
 
-
-
-
 	try{
 
 		let r = await wbEdit.claim.create({
@@ -255,8 +261,14 @@ app.post('/savecrop', async function (req, res) {
 		  value: `https://semlab.s3.amazonaws.com/images/${req.body.item.qid}.jpg`,
 		  references: [
 		    ref
-		  ]
+		  ],
+		  qualifiers: qualifiers
 		})
+
+
+
+
+
 
 		log = log + 'Added Claim to Wikibase.'
 
